@@ -36,16 +36,17 @@ function showProducts(){
 
 //The prompts that display on the terminal
 var startOrder = function(){
-  inquirer.prompt({
+  inquirer.prompt([{
     name: "id",
     type: "input",
     message: "Enter the ID of the product you wish to purchase."
-  },{
+  },
+  {
     name: "quantity",
     type: "input",
     message: "How much of this product would you like? Enter a number."
-  }).then(function(answer) {
-    connection.query('SELECT * FROM products WHERE id = ?', {item_id: answer.id}, function(err, res){
+  }]).then(function(answer) {
+    connection.query('SELECT * FROM products WHERE item_id = ?', [answer.id], function(err, res){
 
     if(answer.quantity > res[0].stock_quantity){
 			console.log('Insufficient Quantity');
